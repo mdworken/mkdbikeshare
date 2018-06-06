@@ -1,0 +1,5 @@
+class CapitalInputsController < ApplicationController
+
+
+
+end

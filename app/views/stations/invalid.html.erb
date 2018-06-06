@@ -1,0 +1,12 @@
+<h1>
+	<% if @invalid_ids %>
+	  <% @invalid_ids.each do |invalid_id| %>
+	  <p>
+	  	Michael says don't use this ID:
+	   	  <%= invalid_id %>
+	    <% end %>
+	  </p>
+	<% else %>
+	Did you navigate here manually? No invalid IDs were passed!
+	<% end %>
+</h1>
