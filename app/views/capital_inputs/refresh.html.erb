@@ -1,0 +1,9 @@
+<h3>
+  Last refresh of capital_input took <%= @time_diff %> seconds
+</h3>
+<h1>
+<% if @time_diff < 0.5.seconds %>
+   NICE!
+<% else %>
+  <font color="FF0000"> Uh oh! Pay attention to me! </font>
+<% end %>
