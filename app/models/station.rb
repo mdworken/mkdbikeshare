@@ -1,7 +1,6 @@
 class Station < ApplicationRecord
   validates :id, uniqueness: true
   before_create :ensure_valid_id #not sure if it's still smart to put this in if the controller already validates it
-  attr_accessor :num_bikes, :num_docks
   
   def ensure_valid_id
     throw :abort unless valid_id?
