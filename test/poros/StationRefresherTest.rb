@@ -28,6 +28,25 @@ class StationRefresherTest < ActiveSupport::TestCase
       station_2 = Station.find(34)
       assert_not_nil station_2.num_docks
       assert_not_equal station_2.num_bikes, 70
-    end 
+    end
+
+    it 'should be able to refresh all' do
+      station_3 = Station.find(35)
+      assert_equal station_3.num_bikes, 400
+      
+      station_4 = Station.find(36)
+      assert_equal station_4.num_docks, 70
+      assert_nil station_4.num_bikes
+
+      StationRefresher.refresh_all
+      
+      station_3 = Station.find(35)
+      assert_not_equal station_3.num_bikes, 400
+      
+      station_4 = Station.find(36)
+      assert_not_equal station_4.num_docks, 70
+      assert_not_nil station_4.num_bikes
+    end
+
   end
 end
