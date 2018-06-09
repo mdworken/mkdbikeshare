@@ -27,4 +27,9 @@ class BikeshareFeedProcessor
     @@current_data
   end
 
+  #TODO This method is included only for testing purposes. Look into keeping it out of production? 
+  def self.set_data(data, last_refreshed=DateTime.now)
+    @@current_data=data
+    BikeshareFeedProcessor.last_refreshed = last_refreshed
+  end
 end
