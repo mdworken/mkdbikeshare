@@ -2,20 +2,29 @@ require 'nokogiri'
 require 'open-uri'
 class BikeshareFeedProcessor
 
-  @@last_refreshed = nil
-  
+  class_attribute :last_refreshed
+
+  REFRESH_AFTER = 7.seconds
+
   def self.refresh
-  	@@last_refreshed = Time.now
+    BikeshareFeedProcessor.last_refreshed = DateTime.now
     @@current_data = Nokogiri::XML(open("https://feeds.capitalbikeshare.com/stations/stations.xml"))
   end
   
+  def self.refresh_and_time
+    time_before = DateTime.now
+    BikeshareFeedProcessor.refresh
+    time_after = DateTime.now
+    time_diff = (time_after - time_before).seconds
+  end
+
   def self.needs_refresh?
-    @@last_refreshed.nil? or (Time.now - @@last_refreshed > 7.seconds)
+    BikeshareFeedProcessor.last_refreshed.nil? or (DateTime.now - BikeshareFeedProcessor.last_refreshed > REFRESH_AFTER)
   end
   
   def self.current_data
     refresh if needs_refresh?
     @@current_data
   end
-  
+
 end
