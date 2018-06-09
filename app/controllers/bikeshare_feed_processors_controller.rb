@@ -1,4 +1,4 @@
-class CapitalInputsController < ApplicationController
+class BikeshareFeedProcessorsController < ApplicationController
 
   def manually_refresh
   	time_before = Time.now

@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
-class CapitalInput
+class BikeshareFeedProcessor
 
   @@last_refreshed = nil
   
