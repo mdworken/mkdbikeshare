@@ -6,10 +6,15 @@ class StationRefresher
     num_bikes = station_data.css("nbBikes").text
     num_docks = station_data.css("nbEmptyDocks").text
     Station.update(id, :num_bikes => num_bikes, :num_docks => num_docks)
+    Station.find(id)
   end
 
   def self.refresh_all
-    #TODO @todo = 3
+    stations=Station.all
+    stations.each do |station|
+      id = station.id
+      StationRefresher.refresh(id)
+    end
   end
 
 end
