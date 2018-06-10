@@ -1,3 +1,7 @@
+require 'open-uri'
+require 'uri'
+require 'json'
+require 'net/http'
 class StationsController < ApplicationController
   before_action :validate_ids, only: :index
 
@@ -8,7 +12,12 @@ class StationsController < ApplicationController
       station = Station.find_or_create_by(id: id)
       @stations << StationRefresher.refresh(id)
     end
-    render "bs"
+    if params[:api_only] != "false"
+      render html: send_stations_to_slack
+      
+    else 
+      render "bs"
+    end 
   end
 
   def invalid
@@ -26,6 +35,24 @@ class StationsController < ApplicationController
     end
     
     render 'invalid' unless @invalid_ids.empty?
+  end
+  
+  def send_stations_to_slack
+    payload = Hash.new
+    payload[:channel] = '#bikeshare'
+    payload[:username] = 'mkd Bikeshare'
+    
+    text = ''
+    @stations.each do |station|
+      text << "Station Id: #{station.id}  "
+      text << "Bikes Available: #{station.num_bikes}  "
+      text << "Docks Available: #{station.num_docks}\n"
+    end
+    payload[:text] = text
+    
+    Net::HTTP.post URI(ENV['SLACK_WEBHOOK']),
+               payload.to_json,
+               "Content-Type" => "application/json"
   end
 
   def validated(id)
