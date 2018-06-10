@@ -13,8 +13,7 @@ class StationsController < ApplicationController
       @stations << StationRefresher.refresh(id)
     end
     if params[:api_only] != "false"
-      render html: send_stations_to_slack
-      
+      send_stations_to_slack
     else 
       render "bs"
     end 
