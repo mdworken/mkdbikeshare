@@ -10,16 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_06_014143) do
+ActiveRecord::Schema.define(version: 2018_06_11_131728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "location_queries", force: :cascade do |t|
+    t.string "query"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stations", force: :cascade do |t|
     t.integer "num_bikes"
     t.integer "num_docks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "station_name"
+    t.string "name"
   end
 
 end

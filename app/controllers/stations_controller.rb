@@ -38,15 +38,17 @@ class StationsController < ApplicationController
   end
   
   def send_stations_to_slack
+    #TODO put this in a serializer?
     payload = Hash.new
     payload[:channel] = '#bikeshare'
     payload[:username] = 'mkd Bikeshare'
     
     text = ''
     @stations.each do |station|
+      text << "Station Name: #{station.name}\n"
       text << "Station Id: #{station.id}  "
       text << "Bikes Available: #{station.num_bikes}  "
-      text << "Docks Available: #{station.num_docks}\n"
+      text << "Docks Available: #{station.num_docks}\n\n"
     end
     payload[:text] = text
     
