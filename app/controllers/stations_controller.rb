@@ -12,7 +12,7 @@ class StationsController < ApplicationController
       station = Station.find_or_create_by(id: id)
       @stations << StationRefresher.refresh(id)
     end
-    if params[:api_only] != "false"
+    if params[:api_only] == "true"
       send_stations_to_slack
       render html: "Pretty neat, huh?"
     else 
