@@ -28,8 +28,8 @@ class BikeshareFeedProcessor
   end
 
   #TODO This method is included only for testing purposes. Look into keeping it out of production? 
-  def self.set_data(data, last_refreshed=DateTime.now)
-    @@current_data=data
-    BikeshareFeedProcessor.last_refreshed = last_refreshed
+  def self.set_data(xml_file)
+    @@current_data=Nokogiri::XML(open(xml_file))
+    BikeshareFeedProcessor.last_refreshed = DateTime.now
   end
 end
