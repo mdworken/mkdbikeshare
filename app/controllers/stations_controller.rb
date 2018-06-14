@@ -14,9 +14,9 @@ class StationsController < ApplicationController
     end
     if params[:api_only] == "true"
       send_stations_to_slack
-      render html: "Pretty neat, huh?"
+      render "display_results"
     else 
-      render "bs"
+      render "display_results"
     end 
   end
 

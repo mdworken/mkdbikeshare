@@ -1,0 +1,11 @@
+<h2>Station information for your query: <!--#TODO add query to this once maps api is setup --></h2>
+
+<% @stations.each do |station|%>
+
+    <h3> <%= station.name %></h3>
+    <p>
+      Id: <b><%= station.id %></b>
+  	  Bikes: <%= station.num_bikes %>
+  	  Docks <%= station.num_docks %>
+    </p>
+<%end%>
