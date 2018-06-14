@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  query: MyString
+  latitude: 
+  latitude: 
+  longitude: 
+  longitude: 
+
+two:
+  query: MyString
+  latitude: 
+  latitude: 
+  longitude: 
+  longitude: 
