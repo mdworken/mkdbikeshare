@@ -11,8 +11,9 @@ class LocationQueryController < ApplicationController
     station_id_array = StationFinder.nearest_stations(@location)
     @nearby_stations = []
     station_id_array.each do |station_id|
-      StationRefresher.refresh(station_id) #Will query twice, but makes sure we're reporting exactly db contents to avoid subtle bugs later
-      @nearby_stations << Station.find(station_id[0])
+      id = station_id[0] #it's reported as the first element in each key, value pair reported array
+      StationRefresher.refresh(id)
+      @nearby_stations << Station.find(id)
     end
     send_nearby_stations_to_slack
     render html: "Done!"
