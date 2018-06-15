@@ -1,11 +1,12 @@
 class LocationQueryController < ApplicationController
 
   def slack_query
-    @query_text = params[:text]
-    if LocationQuery.exists?(@query_text)
-      @location = LocationQuery.first(@query_text)
+    query_text = params[:text]
+    @query_text = query_text
+    if LocationQuery.exists?(query_text)
+      @location = LocationQuery.first(query_text)
     else
-      @location = QueryProcessor.new_query(@query_text)
+      @location = QueryProcessor.new_query(query_text)
     end
     station_id_array = StationFinder.nearest_stations(@location)
     @nearby_stations = []
@@ -25,7 +26,7 @@ class LocationQueryController < ApplicationController
     payload[:channel] = '#bikeshare'
     payload[:username] = 'mkd Bikeshare'
     
-    text = "Here are your nearest stations to the location we found for #{@location}\n"
+    text = "Here are your nearest stations to the location we found for #{@location.query}\n"
     @nearby_stations.each do |station|
       text << "Station Name: #{station.name}\n"
       text << "Station Id: #{station.id}  "
