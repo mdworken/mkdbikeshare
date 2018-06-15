@@ -8,5 +8,10 @@ class QueryProcessor
     longitude = @location['lng']
     LocationQuery.create(query: query, latitude: latitude, longitude: longitude)
   end
+  
+  def nearest_stations(query, num_stations = 3)
+    
+
+  end
 
 end
