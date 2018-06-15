@@ -4,7 +4,7 @@ class LocationQueryController < ApplicationController
     query_text = params[:text]
     @query_text = query_text
     if LocationQuery.exists?(query_text)
-      @location = LocationQuery.first(query_text)
+      @location = LocationQuery.first(query: query_text)
     else
       @location = QueryProcessor.new_query(query_text)
     end
