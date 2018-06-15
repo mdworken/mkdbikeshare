@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_11_131728) do
+ActiveRecord::Schema.define(version: 2018_06_15_012041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "location_queries", force: :cascade do |t|
     t.string "query"
-    t.float "latitude"
-    t.float "longitude"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 2018_06_11_131728) do
     t.integer "num_docks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "station_name"
     t.string "name"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
   end
 
 end

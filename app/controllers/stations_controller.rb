@@ -38,7 +38,7 @@ class StationsController < ApplicationController
   end
   
   def send_stations_to_slack
-    #TODO put this in a serializer?
+    #TODO put this in a concern (or PORO?) to DRY things up?
     payload = Hash.new
     payload[:channel] = '#bikeshare'
     payload[:username] = 'mkd Bikeshare'

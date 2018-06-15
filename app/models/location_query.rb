@@ -1,0 +1,3 @@
+class LocationQuery < ApplicationRecord
+  
+end
