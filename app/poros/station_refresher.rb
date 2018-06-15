@@ -22,10 +22,10 @@ class StationRefresher
       begin
         station_data = data_source.at("id:contains(#{id})").parent
         station = Station.find_or_create_by(id: id)
-        station.lat = station_data.css("lat").text
-        station.lng = station_data.css("long").text
+        station.latitude = station_data.css("lat").text
+        station.longitude = station_data.css("long").text
         station.name = station_data.css("name").text
-        station.update_attributes
+        station.save
       rescue
         #station id was one of the couple invalid ones
       end

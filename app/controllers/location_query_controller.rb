@@ -3,7 +3,8 @@ class LocationQueryController < ApplicationController
   def slack_query
     query_text = params[:query_text]
     if LocationQuery.exists?(query_text)
-      location = LocationQuery.first(query_text)
+      @location = LocationQuery.first(query_text)
+    end
     
 
   end 
