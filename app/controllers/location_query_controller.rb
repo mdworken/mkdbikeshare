@@ -4,17 +4,19 @@ class LocationQueryController < ApplicationController
     query_text = params[:text]
     @query_text = query_text
     if LocationQuery.exists?(query_text)
-      @location = LocationQuery.first(query: query_text)
+      location = LocationQuery.first(query: query_text)
     else
-      @location = QueryProcessor.new_query(query_text)
+      location = QueryProcessor.new_query(query_text)
     end
-    station_id_array = StationFinder.nearest_stations(@location)
+    render html: "Uh oh! We couldn't find a location for that query." and return if location.nil?
+    station_id_array = StationFinder.nearest_stations(location)
     @nearby_stations = []
     station_id_array.each do |station_id|
       id = station_id[0] #it's reported as the first element in each key, value pair reported array
       StationRefresher.refresh(id)
       @nearby_stations << Station.find(id)
     end
+    @location=location
     send_nearby_stations_to_slack
     render html: "Done!"
   end 
