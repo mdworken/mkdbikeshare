@@ -11,17 +11,16 @@ class LocationQueryController < ApplicationController
     station_id_array = StationFinder.nearest_stations(@location)
     @nearby_stations = []
     station_id_array.each do |station_id|
+      StationRefresher.refresh(station_id) #Will query twice, but makes sure we're reporting exactly db contents to avoid subtle bugs later
       @nearby_stations << Station.find(station_id[0])
     end
     send_nearby_stations_to_slack
+    render html: "Done!"
   end 
 
 
-
-
-
   def send_nearby_stations_to_slack
-    #TODO put this in a concern (or PORO?) to DRY things up?
+    #TODO put this in a concern (or PORO?) to DRY things up? 
     payload = Hash.new
     payload[:channel] = '#bikeshare'
     payload[:username] = 'mkd Bikeshare'
@@ -39,7 +38,5 @@ class LocationQueryController < ApplicationController
                payload.to_json,
                "Content-Type" => "application/json"
   end
-
-
 
 end
