@@ -17,8 +17,8 @@ class LocationQueryController < ApplicationController
       @nearby_stations << Station.find(id)
     end
     @location=location
-    send_nearby_stations_to_slack
-    render html: "Done!"
+    text = send_nearby_stations_to_slack
+    render html: text
   end 
 
 
@@ -35,11 +35,14 @@ class LocationQueryController < ApplicationController
       text << "Bikes Available: #{station.num_bikes}  "
       text << "Docks Available: #{station.num_docks}\n\ \n"
     end
-    payload[:text] = text
     
-    Net::HTTP.post URI(ENV['SLACK_WEBHOOK']),
-               payload.to_json,
-               "Content-Type" => "application/json"
+    text
+
+    #payload[:text] = text
+    
+    #Net::HTTP.post URI(ENV['SLACK_WEBHOOK']),
+    #           payload.to_json,
+    #           "Content-Type" => "application/json"
   end
 
 end
